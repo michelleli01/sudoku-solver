@@ -1,6 +1,7 @@
 import pygame
 from solver import solve
 from solver import valid_move
+import random
 
 pygame.init()
 pygame.font.init()
@@ -12,18 +13,38 @@ screen.fill((255, 255, 255))
 
 run = True
 
+allBoards = []
+f = open("boards.txt", "r").readlines()
+for line in f:
+    allBoards.append(line)
+
+rand = random.randint(0, len(f)-1)
+line = f[rand].split(",")
+
+bo = []
+count = 0
+
+for i in range(9):
+    row = []
+    for j in range(9):
+        row.append(int(line[count]))
+        count += 1
+    bo.append(row)
+
 class Grid:
-    board = [
-        [1, 0, 0, 4, 8, 9, 0, 0, 6],
-        [7, 3, 0, 0, 5, 0, 0, 4, 0],
-        [4, 6, 0, 0, 0, 1, 2, 9, 5],
-        [3, 8, 7, 1, 2, 0, 6, 0, 0],
-        [5, 0, 1, 7, 0, 3, 0, 0, 8],
-        [0, 4, 6, 0, 9, 5, 7, 1, 0],
-        [9, 1, 4, 6, 0, 0, 0, 8, 0],
-        [0, 2, 0, 0, 4, 0, 0, 3, 7],
-        [8, 0, 3, 5, 1, 2, 0, 0, 4]
-    ]
+    # board = [
+    #     [1, 0, 0, 4, 8, 9, 0, 0, 6],
+    #     [7, 3, 0, 0, 5, 0, 0, 4, 0],
+    #     [4, 6, 0, 0, 0, 1, 2, 9, 5],
+    #     [3, 8, 7, 1, 2, 0, 6, 0, 0],
+    #     [5, 0, 1, 7, 0, 3, 0, 0, 8],
+    #     [0, 4, 6, 0, 9, 5, 7, 1, 0],
+    #     [9, 1, 4, 6, 0, 0, 0, 8, 0],
+    #     [0, 2, 0, 0, 4, 0, 0, 3, 7],
+    #     [8, 0, 3, 5, 1, 2, 0, 0, 4]
+    # ]
+
+    board = bo
 
     def __init__(self, rows, cols, width, height):
         self.rows = rows
